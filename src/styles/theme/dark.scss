@@ -1,0 +1,140 @@
+@mixin dark_template($primary-color: #6D7FC8) {
+
+  $text-color: #fff;
+  $control-bg-color: rgba(0, 0, 0, 0.6);
+
+  background-color: $primary-color;
+
+  .tab-content-title {
+    color: $text-color;
+  }
+
+  .menu-button {
+    background-color: $control-bg-color;
+  }
+
+  .menu-button[selected="true"] {
+    background-color: $text-color;
+  }
+
+  .menu-button > svg > path {
+    fill: $text-color;
+  }
+
+  .menu-button[selected="true"] > svg > path {
+    fill: $primary-color;
+  }
+
+  .task-list-item path.selected {
+    fill: $primary-color;
+  }
+
+  .add-new-task {
+    background-color: $control-bg-color;
+  }
+
+  .add-new-task path {
+    fill: $text-color;
+  }
+
+  .add-new-task .task-input {
+    color: $text-color;
+  }
+
+  .add-new-task .task-input::placeholder {
+    color: $text-color;
+  }
+
+  .no-result > .tips {
+    color: $text-color;
+  }
+
+  .filter-tag {
+    color: $text-color;
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .filter-tag[selected="true"] {
+    background-color: $control-bg-color;
+  }
+
+  .sort-tag {
+    color: $text-color;
+    background-color: $control-bg-color;
+
+    svg {
+      fill: $text-color;
+    }
+  }
+
+}
+
+.tab-nav-item[theme="dark-blue"] {
+  svg {
+    fill: #6D7FC8;
+  }
+}
+
+.tab-content[theme="dark-blue"] {
+  @include dark_template(#6D7FC8);
+}
+
+.tab-nav-item[theme="dark-purple"] {
+  svg {
+    fill: #9F6BA6;
+  }
+}
+
+.tab-content[theme="dark-purple"] {
+  @include dark_template(#9F6BA6);
+}
+
+.tab-nav-item[theme="dark-pink"] {
+  svg {
+    fill: #CC6A83;
+  }
+}
+
+.tab-content[theme="dark-pink"] {
+  @include dark_template(#CC6A83);
+}
+
+.tab-nav-item[theme="dark-red"] {
+  svg {
+    fill: #C66761;
+  }
+}
+
+.tab-content[theme="dark-red"] {
+  @include dark_template(#C66761);
+}
+
+.tab-nav-item[theme="dark-green"] {
+  svg {
+    fill: #5B9777;
+  }
+}
+
+.tab-content[theme="dark-green"] {
+  @include dark_template(#5B9777);
+}
+
+.tab-nav-item[theme="dark-cyan"] {
+  svg {
+    fill: #599794;
+  }
+}
+
+.tab-content[theme="dark-cyan"] {
+  @include dark_template(#599794);
+}
+
+.tab-nav-item[theme="dark-cyan"] {
+  svg {
+    fill: #85909A;
+  }
+}
+
+.tab-content[theme="dark-grey"] {
+  @include dark_template(#85909A);
+}

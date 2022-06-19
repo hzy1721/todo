@@ -1,0 +1,42 @@
+.tab-content {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  border-radius: 0 10px 10px 0;
+  position: relative;
+  transition: background-color 0.2s linear, background-image 0.2s linear;
+
+  .tab-content-title {
+    margin: 20px 0;
+  }
+
+  .menu-button-group {
+    position: absolute;
+    top: 40px;
+    right: 20px;
+  }
+
+  .menu-button {
+    display: inline-block;
+    width: 60px;
+    height: 35px;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding: 5px 17.5px;
+    margin-left: 10px;
+  }
+
+  .no-result {
+    text-align: center;
+    margin-top: 150px;
+  }
+
+}
+
+.select-theme {
+  position: absolute;
+  right: 20px;
+  top: 80px;
+}

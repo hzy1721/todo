@@ -1,0 +1,82 @@
+@mixin wallpaper_template($bg-image: url('@/assets/blue_desert.png')) {
+
+  $text-color: #fff;
+  $control-bg-color: #474442;
+
+  background-image: $bg-image;
+  background-size: cover;
+  // background-position: center;
+
+  .tab-content-title {
+    color: $text-color;
+  }
+
+  .menu-button {
+    background-color: $control-bg-color;
+  }
+
+  .menu-button[selected="true"] {
+    background-color: #DDE6E7;
+  }
+
+  .menu-button > svg > path {
+    fill: $text-color;
+  }
+
+  .menu-button[selected="true"] > svg > path {
+    fill: $control-bg-color;
+  }
+
+  .task-list-item path.selected {
+    fill: #5A656F;
+  }
+
+  .add-new-task {
+    background-color: $control-bg-color;
+  }
+
+  .add-new-task path {
+    fill: $text-color;
+  }
+
+  .add-new-task .task-input {
+    color: $text-color;
+  }
+
+  .add-new-task .task-input::placeholder {
+    color: $text-color;
+  }
+
+  .filter-tag {
+    color: $text-color;
+    background-color: $control-bg-color;
+  }
+
+  .filter-tag[selected="true"] {
+    background-color: #3A4E52;
+  }
+
+  .sort-tag {
+    color: $text-color;
+    background-color: $control-bg-color;
+
+    svg {
+      fill: $text-color;
+    }
+  }
+
+}
+
+.tab-nav-item {
+  svg {
+    fill: #5F6A75;
+  }
+}
+
+.tab-content[theme="blue-desert"] {
+  @include wallpaper_template(url('@/assets/wallpaper/blue_desert.png'));
+}
+
+.tab-content[theme="snow-bh"] {
+  @include wallpaper_template(url('@/assets/wallpaper/snow_bh.jpg'));
+}

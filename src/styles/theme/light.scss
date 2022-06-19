@@ -1,0 +1,139 @@
+@mixin light_template($primary-color: #E1EDF8, $text-color: #3B63A6) {
+
+  $control-bg-color: rgba(255, 255, 255, 0.4);
+
+  background-color: $primary-color;
+
+  .tab-content-title {
+    color: $text-color;
+  }
+
+  .menu-button {
+    background-color: $control-bg-color;
+  }
+
+  .menu-button[selected="true"] {
+    background-color: $text-color;
+  }
+
+  .menu-button > svg > path {
+    fill: $text-color;
+  }
+
+  .menu-button[selected="true"] > svg > path {
+    fill: #fff;
+  }
+
+  .task-list-item path.selected {
+    fill: $text-color;
+  }
+
+  .add-new-task {
+    background-color: $control-bg-color;
+  }
+
+  .add-new-task path {
+    fill: $text-color;
+  }
+
+  .add-new-task .task-input {
+    color: $text-color;
+  }
+
+  .add-new-task .task-input::placeholder {
+    color: $text-color;
+  }
+
+  .no-result > .tips {
+    color: $text-color;
+  }
+
+  .filter-tag {
+    color: $text-color;
+    background-color: transparent;
+  }
+
+  .filter-tag[selected="true"] {
+    background-color: $control-bg-color;
+  }
+
+  .sort-tag {
+    color: $text-color;
+    background-color: $control-bg-color;
+
+    svg {
+      fill: $text-color;
+    }
+  }
+
+}
+
+.tab-nav-item[theme="light-blue"] {
+  svg {
+    fill: #3B63A6;
+  }
+}
+
+.tab-content[theme="light-blue"] {
+  @include light_template(#E1EDF8, #3B63A6);
+}
+
+.tab-nav-item[theme="light-purple"] {
+  svg {
+    fill: #775590;
+  }
+}
+
+.tab-content[theme="light-purple"] {
+  @include light_template(#F1E7F8, #775590);
+}
+
+.tab-nav-item[theme="light-pink"] {
+  svg {
+    fill: #9F425D;
+  }
+}
+
+.tab-content[theme="light-pink"] {
+  @include light_template(#FBE5E9, #9F425D);
+}
+
+.tab-nav-item[theme="light-red"] {
+  svg {
+    fill: #9C4931;
+  }
+}
+
+.tab-content[theme="light-red"] {
+  @include light_template(#F7E8DF, #9C4931);
+}
+
+.tab-nav-item[theme="light-green"] {
+  svg {
+    fill: #386E50;
+  }
+}
+
+.tab-content[theme="light-green"] {
+  @include light_template(#DBF0E6, #386E50);
+}
+
+.tab-nav-item[theme="light-cyan"] {
+  svg {
+    fill: #346D6A;
+  }
+}
+
+.tab-content[theme="light-cyan"] {
+  @include light_template(#DAF0EF, #346D6A);
+}
+
+.tab-nav-item[theme="light-grey"] {
+  svg {
+    fill: #5A656F;
+  }
+}
+
+.tab-content[theme="light-grey"] {
+  @include light_template(#E8EBEF, #5A656F);
+}

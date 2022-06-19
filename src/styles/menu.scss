@@ -1,0 +1,63 @@
+$text-color: #393a39;
+$hover-text-color: #f7faff;
+$hover-bg-color: #2d6ac6;
+
+.menu-item {
+  width: 180px;
+  height: 20px;
+  position: relative;
+  padding: 5px 10px;
+  border-radius: 3px;
+
+  .icon {
+    display: inline-block;
+    vertical-align: middle;
+    width: 20px;
+    height: 20px;
+    fill: $text-color;
+  }
+
+  .icon path {
+    fill: $text-color;
+  }
+
+  .title {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 10px;
+    color: $text-color;
+  }
+
+  >.more {
+    position: absolute;
+    right: 5px;
+  }
+
+  >.sub-menu {
+    position: absolute;
+    right: -210px;
+    top: -5px;
+    z-index: 1;
+    display: none;
+  }
+}
+
+.menu-item:hover {
+  background-color: $hover-bg-color;
+
+  >.icon {
+    fill: $hover-text-color;
+  }
+
+  >.icon path {
+    fill: $hover-text-color;
+  }
+
+  >.title {
+    color: $hover-text-color;
+  }
+
+  >.sub-menu {
+    display: block;
+  }
+}
