@@ -1,4 +1,4 @@
-@mixin wallpaper_template($bg-image: url('@/assets/blue_desert.png')) {
+@mixin wallpaper_template($bg-image: url('@/assets/blue_desert.webp')) {
 
   $text-color: #fff;
   $control-bg-color: #474442;
@@ -74,9 +74,9 @@
 }
 
 .tab-content[theme="blue-desert"] {
-  @include wallpaper_template(url('@/assets/wallpaper/blue_desert.png'));
+  @include wallpaper_template(url('@/assets/wallpaper/blue_desert.webp'));
 }
 
 .tab-content[theme="snow-bh"] {
-  @include wallpaper_template(url('@/assets/wallpaper/snow_bh.jpg'));
+  @include wallpaper_template(url('@/assets/wallpaper/snow_bh.webp'));
 }

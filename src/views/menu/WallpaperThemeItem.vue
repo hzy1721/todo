@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import blue_desert from '@/assets/wallpaper/blue_desert.png';
-import snow_bh from '@/assets/wallpaper/snow_bh.jpg';
+import blue_desert from '@/assets/wallpaper/blue_desert.webp';
+import snow_bh from '@/assets/wallpaper/snow_bh.webp';
 
 const props = defineProps({
   theme: {

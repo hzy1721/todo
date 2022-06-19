@@ -6,7 +6,7 @@ import SortTagGroup from './SortTagGroup.vue';
 
 const props = defineProps({
   tasks: {
-    type: Array<Task>,
+    type: Array,
     default: []
   },
   sortKey: {
@@ -35,7 +35,7 @@ const sortedTasks = computed(() => {
   if (!props.sortKey) {
     return props.tasks;
   }
-  const res = props.tasks.sort((first, second) => {
+  const res = (props.tasks as Task[]).sort((first: Task, second: Task) => {
     let ret = 0;
     if (props.sortKey == 'star') {
       if (first.star == second.star) {

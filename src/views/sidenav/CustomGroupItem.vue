@@ -29,7 +29,7 @@ const expanded = ref(false);
     </div>
 
     <div v-show="expanded">
-      <CustomListItem v-for="list in group.lists" :list="list" style="padding-left: 30px;" />
+      <CustomListItem v-for="list in group.lists" :name="list" style="padding-left: 30px;" />
     </div>
   </div>
 </template>
