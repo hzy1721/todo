@@ -4,7 +4,7 @@ import { useHomeStore } from "@/stores/home";
 import { from, useObservable } from "@vueuse/rxjs";
 import { liveQuery } from "dexie";
 import { storeToRefs } from "pinia";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, computed } from "vue";
 import IconUndone from '../icon/IconUndone.vue';
 import IconDoneFill from "../icon/IconDoneFill.vue";
 import IconCircle from "../icon/IconCircle.vue";
@@ -25,14 +25,16 @@ import IconFile from '../icon/IconFile.vue';
 
 const homeStore = useHomeStore();
 const { activeSideBar } = storeToRefs(homeStore);
-const activeTaskId = Number(activeSideBar.value.slice(5));
-const task = useObservable(
-  from(
-    liveQuery(() => {
-      return db.tasks.get(activeTaskId);
-    })
-  )
-);
+const task = computed(() => {
+  return useObservable(
+    from(
+      liveQuery(() => {
+        const activeTaskId = Number(activeSideBar.value.slice(5));
+        return db.tasks.get(activeTaskId);
+      })
+    )
+  );
+});
 
 const taskNameElement = ref<HTMLElement | null>(null);
 function selectElement(el: HTMLElement) {
@@ -44,16 +46,16 @@ function selectElement(el: HTMLElement) {
 }
 function updateTaskName() {
   if (taskNameElement.value?.innerText.length) {
-    updateTask({ name: taskNameElement.value?.innerText }, task.value?.id);
+    updateTask({ name: taskNameElement.value?.innerText }, task.value.value?.id);
   } else {
-    taskNameElement.value!.innerText = task.value?.name!;
+    taskNameElement.value!.innerText = task.value.value?.name!;
   }
   selectElement(taskNameElement.value!);
 }
 
 const currStep = ref('');
 function addStep() {
-  const steps = task.value?.steps.slice();
+  const steps = task.value.value?.steps.slice();
   steps?.push({
     name: currStep.value,
     done: false
@@ -61,14 +63,14 @@ function addStep() {
   updateTask({ 'steps': JSON.parse(JSON.stringify(steps)) });
 }
 function updateStep(index, obj) {
-  const steps = task.value?.steps.slice();
+  const steps = task.value.value?.steps.slice();
   Object.keys(obj).forEach((key) => {
     steps![index][key] = obj[key];
   });
   updateTask({ 'steps': JSON.parse(JSON.stringify(steps)) });
 }
 function deleteStep(index) {
-  const steps = task.value?.steps.slice(0, index).concat(task.value?.steps.slice(index + 1));
+  const steps = task.value.value?.steps.slice(0, index).concat(task.value.value?.steps.slice(index + 1));
   updateTask({ 'steps': JSON.parse(JSON.stringify(steps)) });
 }
 
@@ -83,16 +85,16 @@ function autoGrowHeight(e: Event) {
 }
 function updateTaskRemark(e: Event) {
   const newRemark = (e.target as HTMLInputElement).value;
-  if (newRemark !== task.value?.remark) {
-    updateTask({ remark: newRemark }, task.value?.id);
+  if (newRemark !== task.value.value?.remark) {
+    updateTask({ remark: newRemark }, task.value.value?.id);
   }
 }
 
 const { dialog } = storeToRefs(homeStore);
 function deleteTaskHandler() {
-  dialog.value.title = `将永久删除“${task.value?.name}”。`
+  dialog.value.title = `将永久删除“${task.value.value?.name}”。`
   dialog.value.subtitle = '你将无法撤消此操作。';
-  dialog.value.action = () => { deleteTask(task.value?.id); dialog.value.show = false; activeSideBar.value = ''; }
+  dialog.value.action = () => { deleteTask(task.value.value?.id); dialog.value.show = false; activeSideBar.value = ''; }
   dialog.value.show = true;
 }
 </script>
@@ -101,21 +103,21 @@ function deleteTaskHandler() {
   <div class="task-detail" id="task-detail">
     <div class="header">
       <div class="icon-wrapper">
-        <IconUndone style="fill: #6c6c6e;" v-show="!task?.done" @click="updateTask({ done: true })" />
-        <IconDoneFill style="fill: #6D7FC8;" v-show="task?.done" @click="updateTask({ done: false })" />
+        <IconUndone style="fill: #6c6c6e;" v-show="!task.value?.done" @click="updateTask({ done: true })" />
+        <IconDoneFill style="fill: #6D7FC8;" v-show="task.value?.done" @click="updateTask({ done: false })" />
       </div>
       <div class="task-name" contenteditable="true" @keydown.enter.prevent="updateTaskName" ref="taskNameElement">
-        {{ task?.name }}
+        {{ task.value?.name }}
       </div>
       <div class="icon-wrapper">
-        <IconStar style="fill: #6c6c6e;" v-show="!task?.star" @click="updateTask({ star: true })" />
-        <IconStarFill style="fill: #6D7FC8;" v-show="task?.star" @click="updateTask({ star: false })" />
+        <IconStar style="fill: #6c6c6e;" v-show="!task.value?.star" @click="updateTask({ star: true })" />
+        <IconStarFill style="fill: #6D7FC8;" v-show="task.value?.star" @click="updateTask({ star: false })" />
       </div>
     </div>
 
     <div class="content">
       <div class="steps">
-        <div class="step-item" v-for="(step, index) in task?.steps" :class="{ done: step.done }">
+        <div class="step-item" v-for="(step, index) in task.value?.steps" :class="{ done: step.done }">
           <div class="icon-wrapper" @click="updateStep(index, { done: !step.done })">
             <IconCircle style="width: 20px; height: 20px; fill: #6c6c6e;" v-if="!step.done" />
             <IconDoneSmall style="width: 20px; height: 20px; fill: #6D7FC8;" v-else />
@@ -134,15 +136,15 @@ function deleteTaskHandler() {
           <IconAdd style="width: 20px; height: 20px; fill: #6D7FC8;" />
         </div>
         <div class="middle-text" style="color: #6D7FC8;">
-          <input type="text" v-model="currStep" :placeholder="task?.steps.length ? '下一步' : '添加步骤'"
-              @keydown.enter.prevent="addStep" />
+          <input type="text" v-model="currStep" :placeholder="task.value?.steps.length ? '下一步' : '添加步骤'"
+            @keydown.enter.prevent="addStep" />
         </div>
       </div>
 
       <Divider margin="10px 0" />
 
       <div style="margin: 15px 0;">
-        <template v-if="!timeInToday(task?.todayTime)">
+        <template v-if="task.value && !timeInToday(task.value.todayTime)">
           <div class="icon-wrapper">
             <IconSun style="width: 20px; height: 20px; fill: #767678;" />
           </div>
@@ -208,7 +210,8 @@ function deleteTaskHandler() {
       <div style="margin: 15px 0;">
         <textarea
           style="width: 100%; min-height: 90px; outline: none; resize: none; color: #767678; font-size: 14px; overflow: hidden; line-height: 18px; border: none;"
-          placeholder="添加备注" @input="autoGrowHeight" ref="taskRemarkElement" @focusout="updateTaskRemark">{{ task ? task.remark : '' }}</textarea>
+          placeholder="添加备注" @input="autoGrowHeight" ref="taskRemarkElement"
+          @focusout="updateTaskRemark" :key="task.value?.id">{{ task.value?.remark }}</textarea>
       </div>
 
       <Divider margin="10px 0" />
@@ -219,7 +222,7 @@ function deleteTaskHandler() {
         <IconRight style="width: 20px; height: 20px; fill: #767678;" />
       </div>
       <div class="middle-text" style="text-align: center;">
-        创建于 {{ readableTime(task ? task.createTime : new Date()) }}
+        创建于 {{ readableTime(task.value ? task.value.createTime : new Date()) }}
       </div>
       <div class="icon-wrapper" @click="deleteTaskHandler">
         <IconDelete style="width: 20px; height: 20px; fill: #767678;" />
@@ -273,7 +276,7 @@ function deleteTaskHandler() {
     }
 
     .step-item.done {
-      
+
       .step-name {
         color: #767678;
         text-decoration: line-through;

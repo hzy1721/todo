@@ -150,7 +150,7 @@ export function readableTime(time: Date): string {
   return `${time.getMonth() + 1} 月 ${time.getDate()} 日 周${weeks[time.getDay()]}`;
 }
 
-export function timeInToday(time?: Date): boolean {
+export function timeInToday(time?: Date | null): boolean {
   if (!time) {
     return false;
   }
