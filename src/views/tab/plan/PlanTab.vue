@@ -20,7 +20,7 @@ const tab = useObservable(
   )
 );
 
-const planTasks = useObservable(
+const originTasks = useObservable(
   from(
     liveQuery(() => {
       return db.tasks.filter((task) => {
@@ -29,8 +29,6 @@ const planTasks = useObservable(
     })
   )
 );
-
-const tasks = planTasks.value;
 
 const nowTime = new Date();
 const todayStart = new Date(nowTime.getFullYear(), nowTime.getMonth(), nowTime.getDate());
@@ -43,7 +41,7 @@ const maxEnd = weekEnd > tomorrowEnd ? weekEnd : tomorrowEnd;
 function timeInRange(time: Date | null, left: Date | null, right: Date | null): boolean {
   if (!time)
     return false;
-  if (left && time < left)
+  if (left && time <= left)
     return false;
   if (right && time > right)
     return false;
@@ -75,6 +73,12 @@ const taskFilters = [
       || timeInRange(task.remindTime, maxEnd, null)
   }
 ];
+
+const taskFilter = ref(taskFilters[0]);
+
+const tasks = computed(() => {
+  return originTasks.value?.filter(taskFilter.value);
+});
 </script>
 
 <template>
@@ -83,7 +87,7 @@ const taskFilters = [
 
     <PlanMenu />
 
-    <FilterTagGroup @filterBy="(filterIndex) => { tasks = planTasks?.filter(taskFilters[filterIndex]) }" />
+    <FilterTagGroup @filterBy="(filterIndex) => { taskFilter = taskFilters[filterIndex] }" />
 
     <TaskList v-if="tasks?.length"
         :tasks="tasks" 
@@ -91,13 +95,14 @@ const taskFilters = [
         :sort-reverse="tab?.sortReverse" 
         :show-done="tab?.showDone"
         :group-key="tab?.groupKey" 
-        :show-empty="tab?.theme.startsWith('dark') || tab?.theme.startsWith('light')" />
+        :show-empty="tab?.theme.startsWith('dark') || tab?.theme.startsWith('light')"
+        style="height: 480px;" />
 
     <div class="no-result" v-else>
       <IconPlanTabHint />
       <div class="tips" style="font-weight: bold; margin-top: 30px; line-height: 20px;">此处显示带有截止日期或提醒的任务。</div>
     </div>
 
-    <AddNewTask class="add-new-task" />
+    <AddNewTask :due-time="todayEnd" />
   </div>
 </template>

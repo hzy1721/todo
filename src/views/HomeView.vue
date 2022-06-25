@@ -33,7 +33,7 @@ onBeforeMount(async () => {
 });
 
 const homeStore = useHomeStore();
-const { activeNav, showSelectTheme, searchText, activeSideBar, dialog, activeMenu } = storeToRefs(homeStore);
+const { activeNav, showSelectTheme, searchText, activeSideBar, dialog } = storeToRefs(homeStore);
 
 function globalClickHandler(e: Event) {
   // when show dialog ignore global click handler

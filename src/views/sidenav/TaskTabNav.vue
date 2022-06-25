@@ -13,7 +13,7 @@ const { activeNav } = storeToRefs(homeStore);
 const tabs = [
   { id: 'today', name: '我的一天', defaultTheme: 'light-blue' },
   { id: 'star', name: '重要', defaultTheme: 'light-pink' },
-  // { id: 'plan', name: '计划内', defaultTheme: 'light-green' },
+  { id: 'plan', name: '计划内', defaultTheme: 'light-green' },
   { id: 'task', name: '任务', defaultTheme: 'dark-blue' },
 ];
 </script>

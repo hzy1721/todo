@@ -12,3 +12,12 @@ const tags = ['全部固定', '过期', '今天', '明天', '本周', '稍后'];
       @click="selectedTagIndex = index, $emit('filterBy', index)" />
   </div>
 </template>
+
+<style lang="scss">
+.plan-tab {
+
+  >.filter-tag-group {
+    margin: 10px 0;
+  }
+}
+</style>

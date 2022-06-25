@@ -126,7 +126,7 @@ const doneTasks = computed(() => {
 <style lang="scss">
 .task-list {
   
-  height: 500px;
+  height: 510px;
   overflow: auto;
   padding-right: 20px;
   margin-right: -20px;
