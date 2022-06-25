@@ -133,6 +133,11 @@ export async function deleteTask(id?: number) {
   await db.tasks.where('id').equals(id).delete();
 }
 
+export function dayToChineseWeek(day: number) {
+  const weeks = ['日', '一', '二', '三', '四', '五', '六'];
+  return `周${weeks[day]}`;
+}
+
 export function readableTime(time: Date): string {
   const nowTime = new Date();
   if (time.getFullYear() == nowTime.getFullYear()
@@ -148,6 +153,11 @@ export function readableTime(time: Date): string {
   }
   const weeks = ['日', '一', '二', '三', '四', '五', '六'];
   return `${time.getMonth() + 1} 月 ${time.getDate()} 日 周${weeks[time.getDay()]}`;
+}
+
+export function dueTime(time: Date): string {
+  const weeks = ['日', '一', '二', '三', '四', '五', '六'];
+  return `${time.getMonth() + 1}月${time.getDate()}日 周${weeks[time.getDay()]}`;
 }
 
 export function timeInToday(time?: Date | null): boolean {

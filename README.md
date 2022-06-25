@@ -2,10 +2,9 @@
 
 ## Tech stack
 
-- framework: Vue 3 + VueUse + Pinia
-- language: SCSS + TS
-- persistance: Dexie (IndexedDB) + localStorage
-- svg icons: [iconfont](https://www.iconfont.cn/)
+- Vue 3/Pinia
+- Dexie/VueUse
+- Element Plus
 
 ## Features
 
@@ -32,7 +31,9 @@
 ### Task detail
 
 - [x] done/name/star/steps/todayTime/remark
-- [ ] remindTime/dueTime/repeatConfig
+- [ ] dueTime/remindTime
+- [ ] repeatConfig
+- [ ] files
 
 ### Custom list
 

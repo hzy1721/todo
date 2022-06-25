@@ -2,14 +2,30 @@
 import IconArrowRight from '@/views/icon/IconArrowRight.vue';
 import MenuView from '../MenuView.vue';
 
-const props = defineProps<{
-  title: string,
-  action: (payload: MouseEvent) => void
-}>();
+type actionType = (payload: MouseEvent) => void;
+
+// const props = defineProps<{
+//   title: string,
+//   action: (payload: MouseEvent) => void,
+// }>();
+const props = defineProps({
+  title: {
+    type: String,
+    required: true
+  },
+  action: {
+    type: Function,
+    required: true
+  },
+  subtitle: {
+    type: String,
+    default: ''
+  }
+});
 </script>
 
 <template>
-  <div class="menu-item" @click="action">
+  <div class="menu-item" @click="(action as actionType)">
     <div class="icon">
       <slot name="icon"></slot>
     </div>
@@ -20,5 +36,8 @@ const props = defineProps<{
         <slot name="subMenu"></slot>
       </MenuView>
     </template>
+    <div class="subtitle" v-if="subtitle">
+      {{ subtitle }}
+    </div>
   </div>
 </template>

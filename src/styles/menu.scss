@@ -40,6 +40,15 @@ $hover-bg-color: #2d6ac6;
     z-index: 1;
     display: none;
   }
+
+  >.subtitle {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    line-height: 20px;
+    font-size: 14px;
+    color: #767678;
+  }
 }
 
 .menu-item:hover {
@@ -53,7 +62,7 @@ $hover-bg-color: #2d6ac6;
     fill: $hover-text-color;
   }
 
-  >.title {
+  >.title, >.subtitle {
     color: $hover-text-color;
   }
 

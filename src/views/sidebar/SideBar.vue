@@ -2,7 +2,7 @@
 import { useHomeStore } from "@/stores/home";
 import { storeToRefs } from "pinia";
 import TaskAdvice from "./advice/TaskAdvice.vue";
-import TaskDetail from "./TaskDetail.vue";
+import TaskDetail from "./detail/TaskDetail.vue";
 
 const homeStore = useHomeStore();
 const { activeSideBar } = storeToRefs(homeStore);
