@@ -8,7 +8,8 @@ import ActionDueTimeNextWeek from "../../menu/action/ActionDueTimeNextWeek.vue";
 import Divider from "../../components/Divider.vue";
 import ActionDueTimeSelectDate from "../../menu/action/ActionDueTimeSelectDate.vue";
 import type { Task } from "@/models/Task";
-import { dueTime } from "@/scripts/utils";
+import { dueTime, updateTask } from "@/scripts/utils";
+import IconCancel from "../../icon/IconCancel.vue";
 
 const props = defineProps<{
   task: Task | undefined;
@@ -42,6 +43,9 @@ const showSelectDate = ref(false);
       @click="showMenu = true"
     >
       添加截止日期
+    </div>
+    <div class="icon-wrapper" v-if="task?.dueTime">
+      <IconCancel style="width: 20px; height: 20px; fill: #767678;" @click="updateTask({ dueTime: null })" />
     </div>
     <MenuView v-if="showMenu" class="menu" @click="showMenu = false">
       <ActionDueTimeToday />
