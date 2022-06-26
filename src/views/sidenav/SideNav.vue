@@ -13,7 +13,7 @@ import TaskTabNav from './TaskTabNav.vue';
     
     <Divider />
 
-    <!-- <CustomListNav /> -->
+    <CustomListNav />
   </div>
 </template>
 

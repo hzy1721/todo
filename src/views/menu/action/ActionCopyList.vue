@@ -4,7 +4,7 @@ import IconCopy from '@/views/icon/IconCopy.vue';
 </script>
 
 <template>
-  <MenuItemView title="复制列表" :action="() => {}">
+  <MenuItemView title="复制列表" :action="() => {  }">
     <template #icon>
       <IconCopy />
     </template>

@@ -169,3 +169,80 @@ export function timeInToday(time?: Date | null): boolean {
   const todayEnd = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate() + 1);
   return todayStart <= time && time < todayEnd;
 }
+
+function containsName(lists, name: string): boolean {
+  for (const item of lists) {
+    if (typeof item === 'string') {
+      if (item === name) {
+        return true;
+      }
+    } else {
+      for (const list in item.lists) {
+        if (list === name) {
+          return true;
+        }
+      }
+    }
+  }
+  return false;
+}
+
+export function getCustomListName(originName: string): string {
+  const lists: Array<string | { name: string, lists: string[] }> = JSON.parse(localStorage.getItem('custom_lists')!);
+  let name = originName;
+  for (let idx = 1; containsName(lists, name); ++idx) {
+    name = `${originName} (${idx})`;
+  }
+  return name;
+}
+
+export async function updateListName(oldName: string, newName: string) {
+  const homeStore = useHomeStore();
+  const { customLists } = homeStore;
+  for (let i = 0; i < customLists.length; ++i) {
+    const item = customLists[i];
+    if (typeof item === 'string') {
+      if (item === oldName) {
+        customLists[i] = newName;
+        break;
+      }
+    } else {
+      for (let j = 0; j < item.lists.length; ++j) {
+        const list = item.lists[j];
+        if (list === oldName) {
+          customLists[i][j] = newName;
+          break;
+        }
+      }
+    }
+  }
+  localStorage.setItem('custom_lists', JSON.stringify(customLists));
+  await db.lists.where('name').equals(oldName).modify({ name: newName });
+  await db.tasks.where('list').equals(oldName).modify({ list: newName });
+}
+
+export async function deleteCustomList() {
+  const homeStore = useHomeStore();
+  const { activeNav, customLists } = homeStore;
+  const name = activeNav.slice(5);
+  for (let i = 0; i < customLists.length; ++i) {
+    const item = customLists[i];
+    if (typeof item === 'string') {
+      if (item === name) {
+        customLists.splice(i, 1);
+        break;
+      }
+    } else {
+      for (let j = 0; j < item.lists.length; ++j) {
+        const list = item.lists[j];
+        if (list === name) {
+          (customLists[i] as { name: string, lists: string[] }).lists.splice(j, 1);
+          break;
+        }
+      }
+    }
+  }
+  localStorage.setItem('custom_lists', JSON.stringify(customLists));
+  await db.lists.where('name').equals(name).delete();
+  await db.tasks.where('list').equals(name).delete();
+} 

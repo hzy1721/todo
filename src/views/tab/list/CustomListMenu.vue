@@ -28,7 +28,7 @@ import ActionDeleteList from '../../menu/action/ActionDeleteList.vue';
       </ActionSort>
       <ActionChangeTheme />
       <ActionCopyList />
-      <ActionPrintList />
+      <!-- <ActionPrintList /> -->
       <ActionToggleDoneTask />
       <Divider color="#c3c4c4" margin="5px" />
       <ActionDeleteList />

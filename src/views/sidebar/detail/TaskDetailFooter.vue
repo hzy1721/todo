@@ -16,6 +16,7 @@ const { activeSideBar, dialog } = storeToRefs(homeStore);
 function deleteTaskHandler() {
   dialog.value.title = `将永久删除“${props.task?.name}”。`
   dialog.value.subtitle = '你将无法撤消此操作。';
+  dialog.value.confirmText = '删除任务';
   dialog.value.action = () => {
     deleteTask(props.task?.id); 
     dialog.value.show = false; 

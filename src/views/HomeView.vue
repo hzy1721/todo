@@ -78,7 +78,7 @@ onUnmounted(() => {
         <StarTab v-else-if="activeNav === 'tab_star'" />
         <PlanTab v-else-if="activeNav === 'tab_plan'" />
         <TaskTabView v-else-if="activeNav === 'tab_task'" />
-        <CustomListTab v-else-if="activeNav.startsWith('list_')" />
+        <CustomListTab v-else-if="activeNav.startsWith('list_')" :key="activeNav" />
         
         <SelectTheme v-if="showSelectTheme" />
       </div>

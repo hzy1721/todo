@@ -12,6 +12,8 @@ export const useHomeStore = defineStore({
       title: '',
       subtitle: '',
       action: () => {},
-    }
+      confirmText: '',
+    },
+    customLists: Array<string | { name: string, lists: string[] }>(),
   })
 });

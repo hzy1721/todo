@@ -14,7 +14,7 @@ const { dialog } = storeToRefs(homeStore);
       <div class="subtitle">{{ dialog.subtitle }}</div>
       <div class="button-group">
         <div class="button" @click="dialog.show = false">取消</div>
-        <div class="button" style="background-color: #3575fd; color: white;" @click="dialog.action">删除任务</div>
+        <div class="button" style="background-color: #3575fd; color: white;" @click="dialog.action">{{ dialog.confirmText }}</div>
       </div>
     </div>
   </div>

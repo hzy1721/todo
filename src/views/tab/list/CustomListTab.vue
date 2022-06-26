@@ -1,16 +1,18 @@
 <script setup lang="ts">
-import { useHomeStore } from '@/stores/home';
-import { from, useObservable } from '@vueuse/rxjs';
-import { liveQuery } from 'dexie';
-import { db } from '@/stores/db';
-import CustomListTitle from './CustomListTitle.vue';
-import CustomListMenu from './CustomListMenu.vue';
-import TaskList from '../../task/TaskList.vue';
-import AddNewTask from '../../task/AddNewTask.vue';
+import { useHomeStore } from "@/stores/home";
+import { from, useObservable } from "@vueuse/rxjs";
+import { liveQuery } from "dexie";
+import { db } from "@/stores/db";
+import CustomListTitle from "./CustomListTitle.vue";
+import CustomListMenu from "./CustomListMenu.vue";
+import TaskList from "../../task/TaskList.vue";
+import AddNewTask from "../../task/AddNewTask.vue";
+import { storeToRefs } from "pinia";
 
 // metadata
 const homeStore = useHomeStore();
-const name = homeStore.activeNav.slice(5);
+const { activeNav } = storeToRefs(homeStore);
+const name = activeNav.value.slice(5);
 const tab = useObservable(
   from(
     liveQuery(() => {
@@ -23,7 +25,7 @@ const tab = useObservable(
 const tasks = useObservable(
   from(
     liveQuery(() => {
-      return db.tasks.where('list').equals(name).toArray();
+      return db.tasks.where("list").equals(name).toArray();
     })
   )
 );
@@ -35,13 +37,15 @@ const tasks = useObservable(
 
     <CustomListMenu />
 
-    <TaskList :tasks="tasks" 
-        :sort-key="tab?.sortKey" 
-        :sort-reverse="tab?.sortReverse" 
-        :show-done="tab?.showDone"
-        :group-key="tab?.groupKey" 
-        :show-empty="tab?.theme.startsWith('dark') || tab?.theme.startsWith('light')" />
+    <TaskList
+      :tasks="tasks"
+      :sort-key="tab?.sortKey"
+      :sort-reverse="tab?.sortReverse"
+      :show-done="tab?.showDone"
+      :group-key="tab?.groupKey"
+      :show-empty="tab?.theme.startsWith('dark') || tab?.theme.startsWith('light')"
+    />
 
-    <AddNewTask />
+    <AddNewTask :list="name" />
   </div>
 </template>

@@ -10,8 +10,8 @@ import ActionToggleDoneTask from '../../menu/action/ActionToggleDoneTask.vue';
   <div class="menu-button-group">
     <MoreButton>
       <ActionChangeTheme />
-      <ActionPrintList />
-      <ActionGrouping />
+      <!-- <ActionPrintList /> -->
+      <!-- <ActionGrouping /> -->
       <ActionToggleDoneTask />
     </MoreButton>
   </div>
