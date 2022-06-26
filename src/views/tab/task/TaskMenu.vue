@@ -18,12 +18,12 @@ import ActionToggleDoneTask from '../../menu/action/ActionToggleDoneTask.vue';
       <ActionSort>
         <ActionSortByStar />
         <ActionSortByName />
-        <!-- <ActionSortByDueTime /> -->
+        <ActionSortByDueTime />
         <ActionSortByCreateTime />
         <ActionSortByToday />
       </ActionSort>
       <ActionChangeTheme />
-      <!-- <ActionCopyList /> -->
+      <ActionCopyList />
       <!-- <ActionPrintList /> -->
       <ActionToggleDoneTask />
     </MoreButton>

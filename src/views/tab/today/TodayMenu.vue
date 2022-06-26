@@ -18,7 +18,7 @@ import ActionToggleDoneTask from '../../menu/action/ActionToggleDoneTask.vue';
       <ActionSort>
         <ActionSortByStar />
         <ActionSortByName />
-        <!-- <ActionSortByDueTime /> -->
+        <ActionSortByDueTime />
         <ActionSortByCreateTime />
       </ActionSort>
       <ActionChangeTheme />

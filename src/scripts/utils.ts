@@ -188,6 +188,9 @@ function containsName(lists, name: string): boolean {
 }
 
 export function getCustomListName(originName: string): string {
+  if (!originName.length) {
+    originName = '任务';
+  }
   const lists: Array<string | { name: string, lists: string[] }> = JSON.parse(localStorage.getItem('custom_lists')!);
   let name = originName;
   for (let idx = 1; containsName(lists, name); ++idx) {
@@ -245,4 +248,4 @@ export async function deleteCustomList() {
   localStorage.setItem('custom_lists', JSON.stringify(customLists));
   await db.lists.where('name').equals(name).delete();
   await db.tasks.where('list').equals(name).delete();
-} 
+}
